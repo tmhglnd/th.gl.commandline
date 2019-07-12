@@ -22,14 +22,16 @@ Download zip
 2. unzip and place in Max Searchpath (eg. MacOS ~/Documents/Max 8/Library)
 3. restart Max8
 ```
-
 Git clone
 ```
 1. $ cd ~/Documents/Max\ 8/Library
 2. $ git clone https://github.com/tmhglnd/th.gl.commandline.git
 3. restart Max8
 ```
-
+```
+4. Create a new object with "n" and type th.gl.commandline. (Alt) + Right-click to open the helpfile.
+5. Read the helpfile carefully, open the Big Example to play with some of the jit.gl objects
+```
 ## License
 
 The software is licensed under:
