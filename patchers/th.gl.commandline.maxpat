@@ -43,7 +43,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
+					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
@@ -55,7 +55,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"rect" : [ 84.0, 128.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -88,9 +88,9 @@
 									"maxclass" : "newobj",
 									"numinlets" : 2,
 									"numoutlets" : 2,
-									"outlettype" : [ "bang", "" ],
-									"patching_rect" : [ 50.0, 140.0, 41.0, 22.0 ],
-									"text" : "sel 13"
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 50.0, 140.0, 78.0, 22.0 ],
+									"text" : "routepass 13"
 								}
 
 							}
@@ -114,7 +114,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 50.0, 222.0, 30.0, 30.0 ]
+									"patching_rect" : [ 50.0, 180.0, 30.0, 30.0 ]
 								}
 
 							}
@@ -155,7 +155,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 293.0, 195.0, 98.0, 22.0 ],
+					"patching_rect" : [ 296.0, 195.0, 98.0, 22.0 ],
 					"text" : "historyEnable $1"
 				}
 
