@@ -17,9 +17,9 @@ var POST_FLAG = 0;
 var curCharacter, lineLength, isTyping;
 var histLine, histAmount;
 
-var NUM_HISTORY = 50;
+var NUM_HISTORY = 100;
 var LINE_CHARS = 80;
-var HIST_LINES = 12;
+var HIST_LINES = 20;
 var CNSL_LINES = 10;
 var UNIQ = Date.now();
 
@@ -400,7 +400,7 @@ var alpha = 1;
 function setAlpha(a){
 	alpha = constrain(a, 0, 1);
 
-	for (var i = 0; i < allTextObj.length; i++){
+	for (var i = 2; i < allTextObj.length; i++){
 		allTextObj[i].blend_enable = 1;
 		allTextObj[i].depth_enable = 0;
 
