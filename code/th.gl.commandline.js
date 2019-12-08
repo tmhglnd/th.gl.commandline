@@ -19,8 +19,8 @@ var histLine, histAmount;
 
 var NUM_HISTORY = 100;
 var LINE_CHARS = 80;
-var HIST_LINES = 20;
-var CNSL_LINES = 10;
+var HIST_LINES = 16;
+var CNSL_LINES = 4;
 var UNIQ = Date.now();
 
 var textMtx = new JitterMatrix("text"+UNIQ, 1, "char", LINE_CHARS, 1);
@@ -189,6 +189,7 @@ function clearHistory(){
 
 function clearConsole(){
 	cnslMtx.clear();
+	showText();
 }//clearConsole()
 
 function cropHistory(){
@@ -355,7 +356,7 @@ function historyEnable(v){
 var cnslAnim = new JitterObject("jit.anim.node");
 cnslAnim.anim = ANIM_NODE;
 cnslAnim.scale = [0.3, 0.3, 0.3];
-cnslAnim.position = [0, -1.75, 0];
+cnslAnim.position = [0, -2.2, 0];
 
 var glCnsl = new JitterObject("jit.gl.text");
 glCnsl.drawto = NODE_CTX;
