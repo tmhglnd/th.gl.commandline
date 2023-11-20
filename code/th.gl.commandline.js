@@ -1,4 +1,4 @@
-// ======================================================================
+// ===================================================================
 // th.gl.commandline.js
 //
 // written by Timo Hoogland © 2019
@@ -7,7 +7,7 @@
 //
 // This work is licensed under a Creative Commons
 // Attribution-NonCommercial-ShareAlike 4.0 International License
-//======================================================================
+//====================================================================
 autowatch = 1;
 inlets = 1;
 outlets = 1;
@@ -38,16 +38,17 @@ function init(){
 
 	setFont(FONT);
 	setSize(SIZE);
-	setAlpha(1);
+	setAlpha(0.7);
 	logoEnable(0);
 
+	consoleEnable(0);
 	showText();
-}//init()
+}
 
 function loadbang(){
 	init();
 	post("th.gl.commandline initialized | www.timohoogland.com", "\n");
-}//loadbang()
+}
 
 function keyPress(k){
 	if (k >= 32 && k <= 126) { addChar(k); } //add a character
@@ -58,13 +59,13 @@ function keyPress(k){
 	if (k == 127){ backSpace(); } //backspace a character
 
 	showText();
-}//keyPress()
+}
 
 function showText(){
 	drawCursor(); //set the cursorposition
 	cropHistory(); //crop the history for display
 	matrixToText(); //set the matrices to the gl text objects
-}//showText()
+}
 
 // enter the line of code, output as a message
 // only if one or more characters are typed
@@ -98,7 +99,7 @@ function newLine(){
 		println("newLine()", "output:", message);
 		outlet(0, "message", message);
 	}
-}//newLine()
+}
 
 function backSpace(k){
 	// curCharacter = Math.max(0, (curCharacter-=1));
@@ -113,7 +114,7 @@ function backSpace(k){
 		// curCharacter = 0;
 	}
 	lineLength = getCharCount(textMtx, 0);
-}//backSpace()
+}
 
 // add a character as text, if cursor is between characters,
 // move next characters one step to the right
@@ -131,7 +132,7 @@ function addChar(k){
 	textMtx.setcell2d(curCharacter, 0, k);
 	curCharacter += 1;
 	lineLength = getCharCount(textMtx, 0);
-}//addChar()
+}
 
 function gotoCharacter(k){
 	var k = (k - 28) * 2 - 1;
@@ -141,7 +142,7 @@ function gotoCharacter(k){
 		// add direction for current character and constrain
 		curCharacter = constrain(curCharacter+k, 0, lineLength);
 	}
-}//gotoCharacter()
+}
 
 // fill all cells with spaces
 // draw cursor at current character position
@@ -149,7 +150,7 @@ function drawCursor(){
 	crsrMtx.setall(32);
 	crsrMtx.setcell2d(curCharacter, 0, 60);
 	crsrMtx.setcell2d(curCharacter+1, 0, 61);
-}//drawCursor()
+}
 
 // return amount of characters in one line
 function getCharCount(mat, line){
@@ -162,7 +163,7 @@ function getCharCount(mat, line){
 		}
 		charCount++;
 	}
-}//getCharCount()
+}
 
 function getHistory(k){
 	var k = (k - 30) * -2 + 1;
@@ -179,25 +180,25 @@ function getHistory(k){
 	}
 	lineLength = getCharCount(textMtx, 0);
 	curCharacter = lineLength;
-}//getHistory()
+}
 
 // clear the history matrix
 function clearHistory(){
 	histMtx.clear();
 	histAmount = 0;
-}//clearHistory()
+}
 
 function clearConsole(){
 	cnslMtx.clear();
 	showText();
-}//clearConsole()
+}
 
 function cropHistory(){
 	dsplMtx.usesrcdim = 1;
 	dsplMtx.srcdimstart = [0, 0];
 	dsplMtx.srcdimend = [LINE_CHARS, HIST_LINES];
 	dsplMtx.frommatrix(histMtx.name);
-}//cropHistory()
+}
 
 // functions for displaying the console text in the jitter window
 var temp = new JitterMatrix();
@@ -210,7 +211,7 @@ function console(m){
 	cnct.matrixcalc([mat, cnslMtx], temp);
 	cnslMtx.frommatrix(temp);
 	showText();
-}//jit_matrix()
+}
 
 function textToMatrix(m){
 	var mess = m.split('').map(function (c){return c.charCodeAt(0)});
@@ -220,19 +221,19 @@ function textToMatrix(m){
 		mat.setcell2d(i, 0, mess[i]);
 	}
 	return mat;
-}//textToMatrix()
+}
 
 // constrain a value between a min and maximum value
 function constrain(val, min, max){
 	return Math.min(max, Math.max(min, val));
-}//constrain()
+}
 
 // custom print function with debug enable/disable functionality
 function println(){
 	if (POST_FLAG){
 		post(arrayfromargs(arguments), "\n");
 	}
-}//print()
+}
 
 // set the debug flag true/false
 // non-zero is true, zero is false
@@ -247,19 +248,18 @@ function debugEnable(v){
 	println("anim name", ANIM_NODE);
 	println("cam name", CAM_CAP);
 	println("//=========================");
-}//debug()
+}
 
-//======================================================================
+//====================================================================
 // GL TEXT OBJECTS
-//======================================================================
+//====================================================================
 
 var MAIN_CTX = "txt";
 var NODE_CTX = "node" + UNIQ;
 var ANIM_NODE = "anim" + UNIQ;
 var CAM_CAP = "cam" + UNIQ;
 
-// var FONT = "IBM Plex Mono SemiBold";
-var FONT = "Andale mono";
+var FONT = "Courier New Bold";
 var SIZE = 60;
 var LOGO_TEXT = "written by timo © 2019 | www.timohoogland.com";
 
@@ -283,7 +283,7 @@ animNode.position = [-2.435, 1.2, 0];
 
 function position(x, y, z){
 	animNode.position = [x, y, z];
-}//position()
+}
 
 // the anim node and text for the command line
 var textAnim = new JitterObject("jit.anim.node");
@@ -296,6 +296,7 @@ glText.anim = textAnim.name;
 glText.gl_color = [1, 1, 1, 1];
 glText.leadscale = 1.2;
 glText.screenmode = 0;
+glText.layer = 9999;
 
 // the anim node and text for the cursor
 var crsrAnim = new JitterObject("jit.anim.node");
@@ -321,7 +322,7 @@ function blink(v){
 		glCrsr.gl_color = [1, 1, 1, glCrsr.gl_color[3]];
 	}
 	// glCrsr.gl_color = arrayfromargs(arguments);
-}//blink()
+}
 
 var barAnim = new JitterObject("jit.anim.node");
 barAnim.anim = ANIM_NODE;
@@ -350,7 +351,7 @@ glHist.screenmode = 0;
 function historyEnable(v){
 	histAnim.enable = Math.floor(v);
 	glHist.enable = Math.floor(v);
-}//logoEnalbe()
+}
 
 // the anim node and text for console
 var cnslAnim = new JitterObject("jit.anim.node");
@@ -367,7 +368,7 @@ glCnsl.screenmode = 0;
 function consoleEnable(v){
 	cnslAnim.enable = Math.floor(v);
 	glCnsl.enable = Math.floor(v);
-}//logoEnalbe()
+}
 
 // the anim node and text for logo
 var logoAnim = new JitterObject("jit.anim.node");
@@ -384,7 +385,7 @@ glLogo.screenmode = 0;
 function logoEnable(v){
 	logoAnim.enable = Math.floor(v);
 	glLogo.enable = Math.floor(v);
-}//logoEnalbe()
+}
 
 // add all objects to array for easy access when
 // changing multiple parameters
@@ -394,7 +395,7 @@ function setFont(f){
 	for (var i = 0; i < allTextObj.length; i++){
 		allTextObj[i].font(f);
 	}
-}//setFont()
+}
 
 var alpha = 1;
 
@@ -409,13 +410,13 @@ function setAlpha(a){
 		c[3] = a;
 		allTextObj[i].gl_color = c;
 	}
-}//setAlpha()
+}
 
 function setSize(s){
 	for (var i = 0; i < allTextObj.length; i++){
 		allTextObj[i].size(s);
 	}
-}//setFont()
+}
 
 function matrixToText(){
 	glText.jit_matrix(textMtx.name);
@@ -423,7 +424,7 @@ function matrixToText(){
 	glHist.jit_matrix(dsplMtx.name);
 	glCnsl.jit_matrix(cnslMtx.name);
 	glLogo.text(LOGO_TEXT);
-}//matrixToText()
+}
 
 // the camera for capture
 var glCam = new JitterObject("jit.gl.camera");
@@ -446,7 +447,7 @@ glVid.layer = 1000;
 
 function blend(b){
 	glHist.blend = b;
-}//blend()
+}
 
 //======================================================================
 // Copyright (C) 2018 Timo Hoogland
